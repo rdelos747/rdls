@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import rand from './rng';
 import colors from './colors';
 import Planet from './planet';
@@ -119,7 +119,7 @@ const App = () => {
     <>
       <GlobalStyle color={appColor} />
 
-      <Router>
+      <HashRouter basename="/">
         <Page color={appColor}>
           <PageInner color={appColor}>
             <Content>
@@ -162,7 +162,7 @@ const App = () => {
             {/* <Footer color={appColor} /> */}
           </PageInner>
         </Page>
-      </Router>
+      </HashRouter>
     </>
   );
 };
