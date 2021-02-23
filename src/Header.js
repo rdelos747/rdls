@@ -102,7 +102,13 @@ const Header = ({ color }) => {
             <StyledLink color={color}>Backlog</StyledLink>
           </Link>
         </HeaderLinks>
-        <a href={window.location.origin}>
+        <a
+          href={
+            process.env.NODE_ENV === 'production'
+              ? 'https://rdelos747.github.io/rdls/'
+              : '/'
+          }
+        >
           <HeaderText>RDLS</HeaderText>
         </a>
       </HeaderTop>
