@@ -19,17 +19,50 @@ const StyledAbout = styled.div`
 
 const AboutText = styled.p`
   color: inherit;
+  margin-bottom: 50px;
+`;
+
+const WorkItem = styled.div`
+  display: flex;
+  justify-content: left;
+`;
+
+const WorkName = styled.p`
+  margin-right: 10px;
+`;
+
+const DateItem = styled.p`
+  opacity: 0.75;
 `;
 
 const About = ({ color }) => {
   return (
     <StyledAbout color={color}>
-      {/* <AboutHeader>ABOUT</AboutHeader> */}
       <AboutText>
-        I know, I know this is not a good way to update a component in react but bare with me for
-        now. We were just trying to use global variable to store global state and it just worked so
-        lets just cerebrate this for now.
+        My name is Rafael De Los Santos. I&apos;m a software engineer from New
+        Jersey, currently living and working in NYC. I have been building and
+        maintaining websites since 2014, and have focussed mainly on React since
+        2019.
+        <br />
+        <br />
+        In my free time I enjoy playing or making video games.
       </AboutText>
+      <WorkItem>
+        <WorkName>Walmart - Senior Frontend Engineer</WorkName>
+        <DateItem>[2020 - 20xx]</DateItem>
+      </WorkItem>
+      <WorkItem>
+        <WorkName>Jetblack - Frontend Engineer</WorkName>
+        <DateItem>[2019 - 2020]</DateItem>
+      </WorkItem>
+      <WorkItem>
+        <WorkName>x.ai - Fullstack Engineer</WorkName>
+        <DateItem>[2018 - 2019]</DateItem>
+      </WorkItem>
+      <WorkItem>
+        <WorkName>Pentagram Design - Web developer</WorkName>
+        <DateItem>[2014 - 2018]</DateItem>
+      </WorkItem>
     </StyledAbout>
   );
 };
