@@ -102,7 +102,7 @@ const Header = ({ color }) => {
             <StyledLink color={color}>Backlog</StyledLink>
           </Link>
         </HeaderLinks>
-        <a href="/">
+        <a href={window.location.origin}>
           <HeaderText>RDLS</HeaderText>
         </a>
       </HeaderTop>
