@@ -98,9 +98,13 @@ const Header = ({ color }) => {
           <Link to={'/games'}>
             <StyledLink color={color}>My games </StyledLink>
           </Link>
-          <Link to={'/backlog'}>
+          <a
+            href="https://rdelos747.github.io/backlog/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <StyledLink color={color}>Backlog</StyledLink>
-          </Link>
+          </a>
         </HeaderLinks>
         <a
           href={
