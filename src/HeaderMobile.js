@@ -124,7 +124,14 @@ const HeaderMobile = () => {
 
   return (
     <StyledHeader color={context.colors.p}>
-      <HeaderTextLink href="/">
+      <HeaderTextLink
+        href={
+          // eslint-disable-next-line
+          process.env.NODE_ENV === 'production'
+            ? 'https://rdelos747.github.io/rdls/'
+            : '/'
+        }
+      >
         <HeaderText>RDLS</HeaderText>
       </HeaderTextLink>
       <HeaderTop>

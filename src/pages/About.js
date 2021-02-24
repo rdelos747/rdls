@@ -4,6 +4,7 @@ import { breakpoints } from '../constants';
 
 const StyledAbout = styled.div`
   width: 50%;
+  margin-bottom: 50px;
   position: relative;
   padding-top: 0px;
   color: ${({ color }) => color};
@@ -43,14 +44,24 @@ const AboutText = styled.p`
 const WorkItem = styled.div`
   display: flex;
   justify-content: left;
+  margin-bottom: 10px;
+  @media only screen and (max-width: ${breakpoints.mobile}px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const WorkName = styled.p`
   margin-right: 10px;
+  @media only screen and (max-width: ${breakpoints.mobile}px) {
+    width: 100%;
+  }
 `;
 
 const DateItem = styled.p`
   opacity: 0.75;
+  @media only screen and (max-width: ${breakpoints.mobile}px) {
+    width: 100%;
+  }
 `;
 
 const About = ({ color }) => {
