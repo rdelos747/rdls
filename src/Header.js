@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { breakpoints } from './constants';
+import AppContext from './Context';
 
 const StyledHeader = styled.div`
   width: 100%;
   position: relative;
   padding-top: 90px;
+  margin-bottom: 20px;
   color: ${({ color }) => color};
 
   @media only screen and (max-width: ${breakpoints.mobile}px) {
@@ -28,6 +30,7 @@ const HeaderText = styled.h1`
   transform-origin: top left;
   font-size: 97px;
   line-height: 67px;
+  color: ${({ color }) => color};
 `;
 
 const HeaderLinks = styled.div`
@@ -87,46 +90,52 @@ const StyledLink = styled.p`
   }
 `;
 
-const Header = ({ color }) => {
+const Header = () => {
+  const context = useContext(AppContext);
+
   return (
-    <StyledHeader color={color}>
+    <StyledHeader color={context.colors.p}>
       <HeaderTop>
         <HeaderLinks>
           <Link to={'/about'}>
-            <StyledLink color={color}>About</StyledLink>
+            <StyledLink color={context.colors.p}>About</StyledLink>
           </Link>
-          <Link to={'/games'}>
-            <StyledLink color={color}>My games </StyledLink>
+          <Link to={'/my-games'}>
+            <StyledLink color={context.colors.p}>My games </StyledLink>
           </Link>
           <a
             href="https://rdelos747.github.io/backlog/"
             target="_blank"
             rel="noreferrer"
           >
-            <StyledLink color={color}>Backlog</StyledLink>
+            <StyledLink color={context.colors.p}>Backlog</StyledLink>
           </a>
         </HeaderLinks>
         <a
           href={
+            // eslint-disable-next-line
             process.env.NODE_ENV === 'production'
               ? 'https://rdelos747.github.io/rdls/'
               : '/'
           }
         >
-          <HeaderText>RDLS</HeaderText>
+          <HeaderText color={context.colors.p}>RDLS</HeaderText>
         </a>
       </HeaderTop>
-      <HeaderBreak color={color} />
-      <HeaderBreak color={color} />
+      <HeaderBreak color={context.colors.p} />
+      <HeaderBreak color={context.colors.p} />
       <HeaderContacts>
-        <HeaderContact href="mailto:rdelos747@gmail.com" color={color}>
+        <HeaderContact
+          href="mailto:rdelos747@gmail.com"
+          color={context.colors.p}
+        >
           rdelos747@gmail.com
         </HeaderContact>
         <HeaderContact
           href="https://github.com/rdelos747"
           target="_blank"
           rel="noreferrer"
-          color={color}
+          color={context.colors.p}
         >
           github.com/rdelos747
         </HeaderContact>
@@ -134,7 +143,7 @@ const Header = ({ color }) => {
           href="https://www.instagram.com/rraafffffff"
           target="_blank"
           rel="noreferrer"
-          color={color}
+          color={context.colors.p}
         >
           instagram.com/rraafffffff
         </HeaderContact>

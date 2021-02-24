@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { HashRouter, Switch, Route } from 'react-router-dom';
-import rand from './rng';
-import colors from './colors';
+
+import AppContext, { AppProvider } from './Context';
 import Planet from './planet';
 import Header from './Header';
 import HeaderMobile from './HeaderMobile';
-import Home from './Home';
-import About from './About';
-//import Backlog from './Backlog';
-//import backlogGames from './backlog-games';
-// import Footer from './Footer';
+import Home from './pages/Home';
+import About from './pages/About';
+import MyGames from './pages/MyGames';
 
 export const contentWidth = 740;
 
@@ -29,7 +27,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    //background: linear-gradient(29deg, rgba(255,0,0,1) 0%, rgba(255,255,255,1) 50%, rgba(255,0,0,1) 100%);
   }
 
   a {
@@ -38,16 +35,12 @@ const GlobalStyle = createGlobalStyle`
 
   p, a, h1 {
     font-family: sans-serif;
-    color: inherit;
-    //color: black;
-  }
-
-  .canvas {
-    position: fixed;
+    //color: inherit;
+    color:black;
   }
 `;
 
-const Page = styled.div`
+const StyledPage = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -56,12 +49,12 @@ const Page = styled.div`
   flex-direction: column;
   position: relative;
   z-index: 1;
-  background: ${({ color }) => `linear-gradient(
+  background: ${({ colors }) => `linear-gradient(
     45deg,
-    ${color} 0%,
+    ${colors.p} 0%,
     rgba(255, 255, 255, 1) 20%,
     rgba(255, 255, 255, 1) 80%,
-    ${color} 100%
+    ${colors.p} 100%
   )`};
 `;
 
@@ -74,96 +67,54 @@ const PageInner = styled.div`
   padding-right: 10px;
   display: flex;
   flex-direction: column;
-  //justify-content: space-between;
-  /* background: ${({ color }) => `linear-gradient(
-    45deg,
-    ${color} 0%,
-    rgba(255, 255, 255, 1) 20%,
-    rgba(255, 255, 255, 1) 80%,
-    ${color} 100%
-  )`}; */
 `;
 
+/*
+Content is left over from a previous layout, but it
+may be needed in the future.
+*/
 const Content = styled.div`
   width: 100%;
   height: 100%;
-  //min-height: calc(100% - 108px);
 `;
 
-const App = () => {
-  const [appSeed, setAppSeed] = useState(null);
-  const [planetColor, setPlanetColor] = useState([255, 255, 255]);
-  const [appColor, setAppColor] = useState('rgba(255,255,255,1)');
-  /*
-  Todo: let the user change these. But not today, too tired.
-  */
-  const [octaves, setOctaves] = useState(4);
-  const [freq, setFreq] = useState(3);
-  const [persistence, setPersistence] = useState(0.5);
-
-  useEffect(() => {
-    const seed = Math.floor(Math.random() * 100000000);
-    rand.init(seed);
-    setAppSeed(seed);
-
-    setOctaves(rand.randInt(2, 9));
-    setFreq(rand.randInt(4, 8));
-    setPersistence(rand.randArb(0, 1));
-
-    const color = rand.choose(colors);
-    setPlanetColor(color);
-    setAppColor(`rgba(${color[0]}, ${color[1]}, ${color[2]})`);
-  }, []);
-
+const Page = ({ children }) => {
+  const context = useContext(AppContext);
   return (
     <>
-      <GlobalStyle color={appColor} />
+      <GlobalStyle colors={context.colors} />
+      <StyledPage colors={context.colors}>
+        <PageInner>{children}</PageInner>
+      </StyledPage>
+    </>
+  );
+};
 
+const App = () => {
+  return (
+    <AppProvider>
       <HashRouter basename="/">
-        <Page color={appColor}>
-          <PageInner color={appColor}>
-            <Content>
-              <Planet
-                planetColor={planetColor}
-                color={appColor}
-                seed={appSeed}
-                octaves={octaves}
-                freq={freq}
-                persistence={persistence}
-              />
-              <Header color={appColor} />
-              <HeaderMobile
-                color={appColor}
-                planetColor={planetColor}
-                seed={appSeed}
-                octaves={octaves}
-                freq={freq}
-                persistence={persistence}
-              />
-              <Switch>
-                <Route path="/about">
-                  <About color={appColor} />
-                </Route>
-                {/* <Route path="/backlog">
-                <Backlog color={appColor} seed={appSeed} />
+        <Page>
+          <Content>
+            <Planet />
+            <Header />
+            <HeaderMobile />
+            <Home />
+            <Switch>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/my-games">
+                <MyGames />
+              </Route>
+              {/* <Route path="/" exact>
+                <Home />
               </Route> */}
-                <Route path="/" exact>
-                  <Home
-                    color={appColor}
-                    planetColor={planetColor}
-                    seed={appSeed}
-                    octaves={octaves}
-                    freq={freq}
-                    persistence={persistence}
-                  />
-                </Route>
-              </Switch>
-            </Content>
-            {/* <Footer color={appColor} /> */}
-          </PageInner>
+            </Switch>
+          </Content>
         </Page>
       </HashRouter>
-    </>
+    </AppProvider>
   );
 };
 

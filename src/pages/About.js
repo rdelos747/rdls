@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { breakpoints } from '../constants';
 
 const StyledAbout = styled.div`
-  width: 100%;
+  width: 50%;
   position: relative;
   padding-top: 0px;
   color: ${({ color }) => color};
-  margin-top: 50px;
+
+  @media only screen and (max-width: ${breakpoints.mobile}px) {
+    width: 100%;
+  }
 `;
 
 // const AboutHeader = styled.h1`
@@ -17,8 +21,22 @@ const StyledAbout = styled.div`
 //   margin-bottom: 20px;
 // `;
 
+// const AboutHeader = styled.h1`
+//   padding-left: 10px;
+//   line-height: 37.3px;
+//   font-size: 48px;
+//   top: 3px;
+//   position: relative;
+//   transform: scale(2, 1);
+//   transform-origin: top left;
+//   display: inline-block;
+//   font-family: serif;
+//   color: ${({ color }) => color};
+// `;
+
 const AboutText = styled.p`
   color: inherit;
+  margin-top: 20px;
   margin-bottom: 50px;
 `;
 
@@ -38,6 +56,9 @@ const DateItem = styled.p`
 const About = ({ color }) => {
   return (
     <StyledAbout color={color}>
+      {/* <PageHeader name={'about'}>
+        <AboutHeader color={color}>ABOUT</AboutHeader>
+      </PageHeader> */}
       <AboutText>
         My name is Rafael De Los Santos. I&apos;m a software engineer from New
         Jersey, currently living and working in NYC. I have been building and

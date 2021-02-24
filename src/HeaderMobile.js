@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { breakpoints } from './constants';
+import AppContext from './Context';
 
 const StyledHeader = styled.div`
   display: none;
@@ -118,61 +119,66 @@ const HeaderContact = styled.a`
   }
 `;
 
-const HeaderMobile = ({
-  color,
-  seed,
-  planetColor,
-  octaves,
-  freq,
-  persistence
-}) => {
+const HeaderMobile = () => {
+  const context = useContext(AppContext);
+
   return (
-    <StyledHeader color={color}>
+    <StyledHeader color={context.colors.p}>
       <HeaderTextLink href="/">
         <HeaderText>RDLS</HeaderText>
       </HeaderTextLink>
       <HeaderTop>
         <HeaderLinks>
           <Link to={'/about'}>
-            <StyledLink color={color}>About</StyledLink>
+            <StyledLink color={context.colors.p}>About</StyledLink>
           </Link>
           <Link to={'/games'}>
-            <StyledLink color={color}>My games </StyledLink>
+            <StyledLink color={context.colors.p}>My games </StyledLink>
           </Link>
-          <Link to={'/backlog'}>
-            <StyledLink color={color}>Backlog</StyledLink>
-          </Link>
+          <a
+            href="https://rdelos747.github.io/backlog/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <StyledLink color={context.colors.p}>Backlog</StyledLink>
+          </a>
         </HeaderLinks>
         <HeaderData>
-          <PlanetInfoText color={color} left={130}>
-            Your seed: <span>{seed}</span>
+          <PlanetInfoText color={context.colors.p} left={130}>
+            Your seed: <span>{context.seed}</span>
           </PlanetInfoText>
-          <PlanetInfoText color={color} left={110}>
-            Color: <span>[{planetColor.join(',')}]</span>
+          <PlanetInfoText color={context.colors.p} left={110}>
+            Color:{' '}
+            <span>
+              [{context.colors.p}, {context.colors.s}]
+            </span>
           </PlanetInfoText>
-          <PlanetInfoText color={color} left={80}>
-            Octaves: <span>{octaves}</span>
+          <PlanetInfoText color={context.colors.p} left={80}>
+            Octaves: <span>{context.octaves}</span>
           </PlanetInfoText>
-          <PlanetInfoText color={color} left={50}>
-            Frequency: <span>{freq}</span>
+          <PlanetInfoText color={context.colors.p} left={50}>
+            Frequency: <span>{context.freq}</span>
           </PlanetInfoText>
-          <PlanetInfoText color={color} left={10}>
-            Persistence: <span>{Math.round(persistence * 10000) / 10000}</span>
+          <PlanetInfoText color={context.colors.p} left={10}>
+            Persistence: <span>{context.persistence}</span>
           </PlanetInfoText>
         </HeaderData>
       </HeaderTop>
 
-      <HeaderBreak color={color} />
-      <HeaderBreak color={color} />
+      <HeaderBreak color={context.colors.p} />
+      <HeaderBreak color={context.colors.p} />
       <HeaderContacts>
-        <HeaderContact href="mailto:rdelos747@gmail.com" color={color}>
+        <HeaderContact
+          href="mailto:rdelos747@gmail.com"
+          color={context.colors.p}
+        >
           rdelos747@gmail.com
         </HeaderContact>
         <HeaderContact
           href="https://github.com/rdelos747"
           target="_blank"
           rel="noreferrer"
-          color={color}
+          color={context.colors.p}
         >
           github.com/rdelos747
         </HeaderContact>
@@ -180,7 +186,7 @@ const HeaderMobile = ({
           href="https://www.instagram.com/rraafffffff"
           target="_blank"
           rel="noreferrer"
-          color={color}
+          color={context.colors.p}
         >
           instagram.com/rraafffffff
         </HeaderContact>
